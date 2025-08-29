@@ -1,7 +1,7 @@
 
 import React from 'react';
 
-const API_URL = "http://127.0.0.1:5000";
+const API_URL = "https://todolist-backened-1-f47f.onrender.com";
 
 export async function registerUser(username, email, password) {
     const res = await fetch(`${API_URL}/register`, {
@@ -21,7 +21,7 @@ export async function loginUser(username, password) {
     return res.json();
 }
 export const requestPasswordReset = async (email) => {
-  const res = await fetch("http://localhost:5000/reset-password", {
+  const res = await fetch("https://todolist-backened-1-f47f.onrender.com/reset-password", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ email }),
