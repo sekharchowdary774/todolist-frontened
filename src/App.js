@@ -10,6 +10,7 @@ import './index.css';
 import { TasksProvider } from "./Components/TasksContext"; // ✅ Import context provider
 import Home from "./Home";
 import ResetPassword from "./Components/ResetPassword";
+import Register from "./Components/Register";
 
 function Layout({ children }) {
   return (
@@ -29,7 +30,7 @@ function App() {
           {/* Login stays separate */}
           <Route path="/" element={<Home/>} />
           <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Login />} />
+          <Route path="/register" element={<Register/>} />
           <Route path="/reset/:email" element={<ResetPassword/>} />
           {/* Pages with Sidebar */}
           <Route
