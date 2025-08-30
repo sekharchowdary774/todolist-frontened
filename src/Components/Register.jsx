@@ -22,7 +22,7 @@ const Register = () => {
       if (data.message) {
         alert("Registration successful! Please login.");
         setIsRegistering(false);
-        navigate("/todo");
+        navigate("/login");
       } else {
         alert(data.error || "Registration failed");
       }
