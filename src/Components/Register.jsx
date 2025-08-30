@@ -4,7 +4,7 @@ import { registerUser } from "./Api"; // only using register here
 import "./login.css";
 
 const Register = () => {
-  const [isRegistering, setIsRegistering] = useState(false);
+  
   const navigate = useNavigate();
 
   // ✅ Register
@@ -21,7 +21,7 @@ const Register = () => {
       const data = await registerUser(username, email, password);
       if (data.message) {
         alert("Registration successful! Please login.");
-        setIsRegistering(false);
+        
         navigate("/login");
       } else {
         alert(data.error || "Registration failed");
