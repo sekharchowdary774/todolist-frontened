@@ -5,13 +5,13 @@ import "./login.css";
 
 const Login = () => {
   const [showReset, setShowReset] = useState(false);
-  const [message, setMessage] = useState(""); // ✅ inline message
+   // ✅ inline message
   const navigate = useNavigate();
 
   // ✅ Login
   const handleLogin = async (e) => {
     e.preventDefault();
-    setMessage("Logging in... please wait.");
+    
 
     const formData = new FormData(e.target);
     const username = formData.get("username");
@@ -21,21 +21,21 @@ const Login = () => {
       const data = await loginUser(username, password);
       if (data.success) {
         localStorage.setItem("user", JSON.stringify(data.user));
-        setMessage(data.message || "Login successful!");
+        alert(data.message || "Login successful!");
         navigate("/todo");
       } else {
-        setMessage(data.error || "Invalid credentials");
+        alert(data.error || "Invalid credentials");
       }
     } catch (err) {
       console.error("Login failed:", err);
-      setMessage("Server error. Please try again.");
+      alert("Server error. Please try again.");
     }
   };
 
   // ✅ Reset Password
   const handlePasswordReset = async (e) => {
     e.preventDefault();
-    setMessage("Sending reset link...");
+    
 
     const formData = new FormData(e.target);
     const email = formData.get("email");
@@ -43,14 +43,14 @@ const Login = () => {
     try {
       const data = await requestPasswordReset(email);
       if (data.success) {
-        setMessage("Reset link sent! Check your inbox.");
+        
         navigate(`/reset/${email}`);
       } else {
-        setMessage(data.error || "Unable to send reset link.");
+        alert(data.error || "Unable to send reset link.");
       }
     } catch (err) {
       console.error("Reset failed:", err);
-      setMessage("Server error. Please try again.");
+      alert("Server error. Please try again.");
     }
   };
 

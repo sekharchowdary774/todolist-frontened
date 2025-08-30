@@ -8,7 +8,7 @@ const Register = () => {
 
   const handleRegister = async (e) => {
     e.preventDefault();
-    alert("Registering... please wait."); 
+    
 
     const formData = new FormData(e.target);
     const username = formData.get("username");
