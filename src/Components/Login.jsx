@@ -1,10 +1,9 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { registerUser, loginUser, requestPasswordReset } from "./Api"; // API calls
+import { loginUser, requestPasswordReset } from "./Api"; // no need registerUser here
 import "./login.css";
 
 const Login = () => {
-  
   const [showReset, setShowReset] = useState(false); // for reset form
   const navigate = useNavigate();
 
@@ -32,9 +31,6 @@ const Login = () => {
     }
   };
 
-  // ✅ Register
-  
-
   // ✅ Reset password
   const handlePasswordReset = async (e) => {
     e.preventDefault();
@@ -57,7 +53,7 @@ const Login = () => {
   };
 
   return (
-    <div className={`wrapper ${isRegistering ? "active" : ""}`}>
+    <div className="wrapper">
       {showReset ? (
         // 🔹 Reset Password Form
         <div className="form-box reset">
@@ -131,7 +127,7 @@ const Login = () => {
                     href="#"
                     onClick={(e) => {
                       e.preventDefault();
-                      
+                      navigate("/register"); // ✅ go to register page
                     }}
                   >
                     Register
@@ -140,8 +136,6 @@ const Login = () => {
               </div>
             </form>
           </div>
-
-          
         </>
       )}
     </div>
