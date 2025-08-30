@@ -131,7 +131,7 @@ const Login = () => {
                     href="#"
                     onClick={(e) => {
                       e.preventDefault();
-                      setIsRegistering(true);
+                      
                     }}
                   >
                     Register

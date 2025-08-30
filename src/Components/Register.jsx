@@ -43,6 +43,7 @@ const Register = () => {
             <input
               type="text"
               name="username"
+              autoComplete="off"
               placeholder="Username"
               required
             />
@@ -51,6 +52,7 @@ const Register = () => {
             <input
               type="email"
               name="email"
+              autoComplete="off"
               placeholder="Email"
               required
             />
@@ -59,6 +61,7 @@ const Register = () => {
             <input
               type="password"
               name="password"
+              autoComplete="off"
               placeholder="Password"
               required
             />
@@ -76,7 +79,7 @@ const Register = () => {
                 href="#"
                 onClick={(e) => {
                   e.preventDefault();
-                  setIsRegistering(false);
+                  
                   navigate("/login"); // navigate back to login page if you want
                 }}
               >
