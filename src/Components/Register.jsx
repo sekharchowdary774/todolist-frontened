@@ -1,16 +1,14 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { registerUser } from "./Api"; // only using register here
+import React from "react";
+import { useNavigate, Link } from "react-router-dom";
+import { registerUser } from "./Api";
 import "./login.css";
 
 const Register = () => {
-  
   const navigate = useNavigate();
 
-  // ✅ Register
   const handleRegister = async (e) => {
     e.preventDefault();
-    alert("Registering... please wait."); // instant response
+    alert("Registering... please wait."); 
 
     const formData = new FormData(e.target);
     const username = formData.get("username");
@@ -18,10 +16,9 @@ const Register = () => {
     const password = formData.get("password");
 
     try {
-      const data = await registerUser(username, email, password);
+      const data = await registerUser({ username, email, password }); // ✅ pass object
       if (data.message) {
         alert("Registration successful! Please login.");
-        
         navigate("/login");
       } else {
         alert(data.error || "Registration failed");
@@ -32,64 +29,32 @@ const Register = () => {
     }
   };
 
-  // ✅ Proper return
   return (
-    <>
-      {/* 🔹 Register Form */}
-      <div className="form-box register">
-        <form onSubmit={handleRegister}>
-          <h1>Register</h1>
-          <div className="input-box">
-            <input
-              type="text"
-              name="username"
-              autoComplete="off"
-              placeholder="Username"
-              required
-            />
-          </div>
-          <div className="input-box">
-            <input
-              type="email"
-              name="email"
-              autoComplete="off"
-              placeholder="Email"
-              required
-            />
-          </div>
-          <div className="input-box">
-            <input
-              type="password"
-              name="password"
-              autoComplete="off"
-              placeholder="Password"
-              required
-            />
-          </div>
-          <div className="remember">
-            <label>
-              <input type="checkbox" /> I agree to the terms & conditions
-            </label>
-          </div>
-          <button type="submit">Register</button>
-          <div className="register">
-            <p>
-              Already have an account?{" "}
-              <a
-                href="#"
-                onClick={(e) => {
-                  e.preventDefault();
-                  
-                  navigate("/login"); // navigate back to login page if you want
-                }}
-              >
-                Login
-              </a>
-            </p>
-          </div>
-        </form>
-      </div>
-    </>
+    <div className="form-box register">
+      <form onSubmit={handleRegister}>
+        <h1>Register</h1>
+        <div className="input-box">
+          <input type="text" name="username" autoComplete="off" placeholder="Username" required />
+        </div>
+        <div className="input-box">
+          <input type="email" name="email" autoComplete="off" placeholder="Email" required />
+        </div>
+        <div className="input-box">
+          <input type="password" name="password" autoComplete="off" placeholder="Password" required />
+        </div>
+        <div className="remember">
+          <label>
+            <input type="checkbox" required /> I agree to the terms & conditions
+          </label>
+        </div>
+        <button type="submit">Register</button>
+        <div className="register">
+          <p>
+            Already have an account? <Link to="/login">Login</Link>
+          </p>
+        </div>
+      </form>
+    </div>
   );
 };
 

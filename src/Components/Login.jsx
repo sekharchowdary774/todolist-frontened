@@ -1,16 +1,17 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { loginUser, requestPasswordReset } from "./Api"; // no need registerUser here
+import { loginUser, requestPasswordReset } from "./Api";
 import "./login.css";
 
 const Login = () => {
-  const [showReset, setShowReset] = useState(false); // for reset form
+  const [showReset, setShowReset] = useState(false);
+  const [message, setMessage] = useState(""); // ✅ inline message
   const navigate = useNavigate();
 
   // ✅ Login
   const handleLogin = async (e) => {
     e.preventDefault();
-    alert("Logging in... please wait."); // instant response
+    setMessage("Logging in... please wait.");
 
     const formData = new FormData(e.target);
     const username = formData.get("username");
@@ -20,21 +21,21 @@ const Login = () => {
       const data = await loginUser(username, password);
       if (data.success) {
         localStorage.setItem("user", JSON.stringify(data.user));
-        alert(data.message);
+        setMessage(data.message || "Login successful!");
         navigate("/todo");
       } else {
-        alert(data.error || "Invalid credentials");
+        setMessage(data.error || "Invalid credentials");
       }
     } catch (err) {
       console.error("Login failed:", err);
-      alert("Server error. Please try again.");
+      setMessage("Server error. Please try again.");
     }
   };
 
-  // ✅ Reset password
+  // ✅ Reset Password
   const handlePasswordReset = async (e) => {
     e.preventDefault();
-    alert("Sending reset link..."); // instant response
+    setMessage("Sending reset link...");
 
     const formData = new FormData(e.target);
     const email = formData.get("email");
@@ -42,20 +43,21 @@ const Login = () => {
     try {
       const data = await requestPasswordReset(email);
       if (data.success) {
+        setMessage("Reset link sent! Check your inbox.");
         navigate(`/reset/${email}`);
       } else {
-        alert(data.error || "Unable to send reset link.");
+        setMessage(data.error || "Unable to send reset link.");
       }
     } catch (err) {
       console.error("Reset failed:", err);
-      alert("Server error. Please try again.");
+      setMessage("Server error. Please try again.");
     }
   };
 
   return (
     <div className="wrapper">
+      {message && <p className="message">{message}</p>}
       {showReset ? (
-        // 🔹 Reset Password Form
         <div className="form-box reset">
           <form onSubmit={handlePasswordReset} autoComplete="off">
             <h1>Reset Password</h1>
@@ -75,6 +77,7 @@ const Login = () => {
                   onClick={(e) => {
                     e.preventDefault();
                     setShowReset(false);
+                    setMessage("");
                   }}
                 >
                   Back to Login
@@ -84,59 +87,58 @@ const Login = () => {
           </form>
         </div>
       ) : (
-        <>
-          {/* 🔹 Login Form */}
-          <div className="form-box login">
-            <form onSubmit={handleLogin} autoComplete="off">
-              <h1>Login</h1>
-              <div className="input-box">
-                <input
-                  type="text"
-                  name="username"
-                  placeholder="Username"
-                  required
-                />
-              </div>
-              <div className="input-box">
-                <input
-                  type="password"
-                  name="password"
-                  placeholder="Password"
-                  required
-                />
-              </div>
-              <div className="remember">
-                <label>
-                  <input type="checkbox" /> Remember me
-                </label>
+        <div className="form-box login">
+          <form onSubmit={handleLogin} autoComplete="off">
+            <h1>Login</h1>
+            <div className="input-box">
+              <input
+                type="text"
+                name="username"
+                placeholder="Username"
+                required
+              />
+            </div>
+            <div className="input-box">
+              <input
+                type="password"
+                name="password"
+                placeholder="Password"
+                autoComplete="current-password"
+                required
+              />
+            </div>
+            <div className="remember">
+              <label>
+                <input type="checkbox" /> Remember me
+              </label>
+              <a
+                href="#"
+                onClick={(e) => {
+                  e.preventDefault();
+                  setShowReset(true);
+                  setMessage("");
+                }}
+              >
+                Forgot Password?
+              </a>
+            </div>
+            <button type="submit">Login</button>
+            <div className="register">
+              <p>
+                Don't have an account?{" "}
                 <a
                   href="#"
                   onClick={(e) => {
                     e.preventDefault();
-                    setShowReset(true);
+                    navigate("/register");
                   }}
                 >
-                  Forgot Password?
+                  Register
                 </a>
-              </div>
-              <button type="submit">Login</button>
-              <div className="register">
-                <p>
-                  Don't have an account?{" "}
-                  <a
-                    href="#"
-                    onClick={(e) => {
-                      e.preventDefault();
-                      navigate("/register"); // ✅ go to register page
-                    }}
-                  >
-                    Register
-                  </a>
-                </p>
-              </div>
-            </form>
-          </div>
-        </>
+              </p>
+            </div>
+          </form>
+        </div>
       )}
     </div>
   );
