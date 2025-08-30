@@ -77,7 +77,7 @@ const Register = () => {
                 onClick={(e) => {
                   e.preventDefault();
                   setIsRegistering(false);
-                  navigate("/"); // navigate back to login page if you want
+                  navigate("/login"); // navigate back to login page if you want
                 }}
               >
                 Login
