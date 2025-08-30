@@ -11,6 +11,8 @@ const Login = () => {
   // ✅ Login
   const handleLogin = async (e) => {
     e.preventDefault();
+    alert("Logging in... please wait."); // instant response
+
     const formData = new FormData(e.target);
     const username = formData.get("username");
     const password = formData.get("password");
@@ -33,6 +35,8 @@ const Login = () => {
   // ✅ Register
   const handleRegister = async (e) => {
     e.preventDefault();
+    alert("Registering... please wait."); // instant response
+
     const formData = new FormData(e.target);
     const username = formData.get("username");
     const email = formData.get("email");
@@ -55,13 +59,14 @@ const Login = () => {
   // ✅ Reset password
   const handlePasswordReset = async (e) => {
     e.preventDefault();
+    alert("Sending reset link..."); // instant response
+
     const formData = new FormData(e.target);
     const email = formData.get("email");
 
     try {
       const data = await requestPasswordReset(email);
       if (data.success) {
-        // navigate to reset page
         navigate(`/reset/${email}`);
       } else {
         alert(data.error || "Unable to send reset link.");
@@ -72,7 +77,6 @@ const Login = () => {
     }
   };
 
-  // ✅ Proper return
   return (
     <div className={`wrapper ${isRegistering ? "active" : ""}`}>
       {showReset ? (

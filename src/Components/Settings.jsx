@@ -28,7 +28,7 @@ function Settings() {
     if (!user) return alert("No user logged in");
 
     try {
-      const res = await fetch(`http://localhost:5000/update_user/${user.id}`, {
+      const res = await fetch(`https://todolist-backened-1-f47f.onrender.com/update_user/${user.id}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -59,7 +59,7 @@ function Settings() {
     if (!window.confirm("⚠️ Are you sure you want to delete your account?")) return;
 
     try {
-      const res = await fetch(`http://localhost:5000/delete_user/${user.id}`, {
+      const res = await fetch(`https://todolist-backened-1-f47f.onrender.com/delete_user/${user.id}`, {
         method: "DELETE",
       });
 
