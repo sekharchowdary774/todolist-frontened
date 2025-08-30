@@ -4,7 +4,7 @@ import { registerUser, loginUser, requestPasswordReset } from "./Api"; // API ca
 import "./login.css";
 
 const Login = () => {
-  const [isRegistering, setIsRegistering] = useState(false);
+  
   const [showReset, setShowReset] = useState(false); // for reset form
   const navigate = useNavigate();
 
@@ -33,28 +33,7 @@ const Login = () => {
   };
 
   // ✅ Register
-  const handleRegister = async (e) => {
-    e.preventDefault();
-    alert("Registering... please wait."); // instant response
-
-    const formData = new FormData(e.target);
-    const username = formData.get("username");
-    const email = formData.get("email");
-    const password = formData.get("password");
-
-    try {
-      const data = await registerUser(username, email, password);
-      if (data.message) {
-        alert("Registration successful! Please login.");
-        setIsRegistering(false);
-      } else {
-        alert(data.error || "Registration failed");
-      }
-    } catch (err) {
-      console.error("Register failed:", err);
-      alert("Server error. Please try again.");
-    }
-  };
+  
 
   // ✅ Reset password
   const handlePasswordReset = async (e) => {
@@ -162,56 +141,7 @@ const Login = () => {
             </form>
           </div>
 
-          {/* 🔹 Register Form */}
-          <div className="form-box register">
-            <form onSubmit={handleRegister}>
-              <h1>Register</h1>
-              <div className="input-box">
-                <input
-                  type="text"
-                  name="username"
-                  placeholder="Username"
-                  required
-                />
-              </div>
-              <div className="input-box">
-                <input
-                  type="email"
-                  name="email"
-                  placeholder="Email"
-                  required
-                />
-              </div>
-              <div className="input-box">
-                <input
-                  type="password"
-                  name="password"
-                  placeholder="Password"
-                  required
-                />
-              </div>
-              <div className="remember">
-                <label>
-                  <input type="checkbox" />I agree to the terms & conditions
-                </label>
-              </div>
-              <button type="submit">Register</button>
-              <div className="register">
-                <p>
-                  Already have an account?{" "}
-                  <a
-                    href="#"
-                    onClick={(e) => {
-                      e.preventDefault();
-                      setIsRegistering(false);
-                    }}
-                  >
-                    Login
-                  </a>
-                </p>
-              </div>
-            </form>
-          </div>
+          
         </>
       )}
     </div>
