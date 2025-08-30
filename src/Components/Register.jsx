@@ -16,7 +16,7 @@ const Register = () => {
     const password = formData.get("password");
 
     try {
-      const data = await registerUser({ username, email, password }); // ✅ pass object
+      const data = await registerUser( username, email, password); // ✅ pass object
       if (data.message) {
         alert("Registration successful! Please login.");
         navigate("/login");
