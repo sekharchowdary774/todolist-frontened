@@ -79,12 +79,12 @@ const Register = () => {
 
   return (
     <div className="wrapper">
+      {message && (
+        <p className={`message ${message.includes('successful') ? 'success' : 'error'}`}>
+          {message}
+        </p>
+      )}
       <div className="form-box register">
-        {message && (
-          <p className={`message ${message.includes('successful') ? 'success' : 'error'}`}>
-            {message}
-          </p>
-        )}
         <form onSubmit={handleRegister}>
           <h1>Register</h1>
           <div className="input-box">
