@@ -5,13 +5,17 @@ import "./login.css";
 
 const Login = () => {
   const [showReset, setShowReset] = useState(false);
-   // ✅ inline message
+  const [message, setMessage] = useState(""); // ✅ Fixed missing message state
+  const [isLoading, setIsLoading] = useState(false); // ✅ Added loading state
   const navigate = useNavigate();
 
-  // ✅ Login
+  // ✅ Fixed Login
   const handleLogin = async (e) => {
     e.preventDefault();
     
+    if (isLoading) return; // Prevent multiple submissions
+    
+    setIsLoading(true);
 
     const formData = new FormData(e.target);
     const username = formData.get("username");
@@ -29,13 +33,14 @@ const Login = () => {
     } catch (err) {
       console.error("Login failed:", err);
       alert("Server error. Please try again.");
+    } finally {
+      setIsLoading(false);
     }
   };
 
-  // ✅ Reset Password
+  // ✅ Fixed Reset Password
   const handlePasswordReset = async (e) => {
     e.preventDefault();
-    
 
     const formData = new FormData(e.target);
     const email = formData.get("email");
@@ -43,7 +48,6 @@ const Login = () => {
     try {
       const data = await requestPasswordReset(email);
       if (data.success) {
-        
         navigate(`/reset/${email}`);
       } else {
         alert(data.error || "Unable to send reset link.");
@@ -95,6 +99,7 @@ const Login = () => {
                 type="text"
                 name="username"
                 placeholder="Username"
+                disabled={isLoading}
                 required
               />
             </div>
@@ -104,12 +109,13 @@ const Login = () => {
                 name="password"
                 placeholder="Password"
                 autoComplete="current-password"
+                disabled={isLoading}
                 required
               />
             </div>
             <div className="remember">
               <label>
-                <input type="checkbox" /> Remember me
+                <input type="checkbox" disabled={isLoading} /> Remember me
               </label>
               <a
                 href="#"
@@ -122,7 +128,9 @@ const Login = () => {
                 Forgot Password?
               </a>
             </div>
-            <button type="submit">Login</button>
+            <button type="submit" disabled={isLoading}>
+              {isLoading ? "Logging in..." : "Login"}
+            </button>
             <div className="register">
               <p>
                 Don't have an account?{" "}
