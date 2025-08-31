@@ -78,16 +78,49 @@ const Register = () => {
   };
 
   return (
-    <div className="wrapper">
+    <div className="wrapper" style={{
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center',
+      minHeight: '100vh',
+      background: '#081b29',
+      padding: '20px'
+    }}>
       {message && (
-        <p className={`message ${message.includes('successful') ? 'success' : 'error'}`}>
+        <p className={`message ${message.includes('successful') ? 'success' : 'error'}`} style={{
+          position: 'absolute',
+          top: '20px',
+          left: '50%',
+          transform: 'translateX(-50%)',
+          zIndex: 1000,
+          padding: '10px 20px',
+          borderRadius: '5px',
+          backgroundColor: message.includes('successful') ? '#d4edda' : '#f8d7da',
+          color: message.includes('successful') ? '#28a745' : '#dc3545',
+          border: `1px solid ${message.includes('successful') ? '#c3e6cb' : '#f5c6cb'}`
+        }}>
           {message}
         </p>
       )}
-      <div className="form-box register">
+      <div className="form-box register" style={{
+        background: 'rgba(255, 255, 255, 0.1)',
+        backdropFilter: 'blur(20px)',
+        border: '2px solid rgba(255, 255, 255, 0.2)',
+        borderRadius: '15px',
+        padding: '40px',
+        width: '100%',
+        maxWidth: '400px',
+        boxShadow: '0 15px 35px rgba(0, 0, 0, 0.1)'
+      }}>
         <form onSubmit={handleRegister}>
-          <h1>Register</h1>
-          <div className="input-box">
+          <h1 style={{
+            color: '#fff',
+            textAlign: 'center',
+            marginBottom: '30px',
+            fontSize: '2rem'
+          }}>Register</h1>
+          
+          <div className="input-box" style={{ marginBottom: '20px' }}>
             <input 
               type="text" 
               name="username" 
@@ -95,9 +128,21 @@ const Register = () => {
               placeholder="Username" 
               disabled={isLoading}
               required 
+              style={{
+                width: '100%',
+                height: '50px',
+                background: 'rgba(255, 255, 255, 0.1)',
+                border: '2px solid rgba(255, 255, 255, 0.2)',
+                borderRadius: '10px',
+                fontSize: '16px',
+                color: '#fff',
+                padding: '0 20px',
+                outline: 'none'
+              }}
             />
           </div>
-          <div className="input-box">
+          
+          <div className="input-box" style={{ marginBottom: '20px' }}>
             <input 
               type="email" 
               name="email" 
@@ -105,9 +150,21 @@ const Register = () => {
               placeholder="Email" 
               disabled={isLoading}
               required 
+              style={{
+                width: '100%',
+                height: '50px',
+                background: 'rgba(255, 255, 255, 0.1)',
+                border: '2px solid rgba(255, 255, 255, 0.2)',
+                borderRadius: '10px',
+                fontSize: '16px',
+                color: '#fff',
+                padding: '0 20px',
+                outline: 'none'
+              }}
             />
           </div>
-          <div className="input-box">
+          
+          <div className="input-box" style={{ marginBottom: '20px' }}>
             <input 
               type="password" 
               name="password" 
@@ -115,19 +172,63 @@ const Register = () => {
               placeholder="Password (min 6 characters)" 
               disabled={isLoading}
               required 
+              style={{
+                width: '100%',
+                height: '50px',
+                background: 'rgba(255, 255, 255, 0.1)',
+                border: '2px solid rgba(255, 255, 255, 0.2)',
+                borderRadius: '10px',
+                fontSize: '16px',
+                color: '#fff',
+                padding: '0 20px',
+                outline: 'none'
+              }}
             />
           </div>
-          <div className="remember">
-            <label>
-              <input type="checkbox" disabled={isLoading} required /> 
+          
+          <div className="remember" style={{ 
+            marginBottom: '25px',
+            display: 'flex',
+            alignItems: 'center'
+          }}>
+            <label style={{ 
+              color: '#fff',
+              display: 'flex',
+              alignItems: 'center',
+              fontSize: '14px'
+            }}>
+              <input 
+                type="checkbox" 
+                disabled={isLoading} 
+                required 
+                style={{ marginRight: '8px' }}
+              /> 
               I agree to the terms & conditions
             </label>
           </div>
-          <button type="submit" disabled={isLoading}>
+          
+          <button 
+            type="submit" 
+            disabled={isLoading}
+            style={{
+              width: '100%',
+              height: '50px',
+              background: isLoading ? '#666' : 'linear-gradient(45deg, #00abf0, #006e9a)',
+              border: 'none',
+              borderRadius: '10px',
+              fontSize: '16px',
+              fontWeight: 'bold',
+              color: '#fff',
+              cursor: isLoading ? 'not-allowed' : 'pointer',
+              marginBottom: '20px',
+              opacity: isLoading ? 0.6 : 1
+            }}
+          >
             {isLoading ? "Registering..." : "Register"}
           </button>
-          <div className="register">
-            <p>
+          
+          <div className="register" style={{ textAlign: 'center' }}>
+            <p style={{ color: '#fff', margin: 0 }}>
               Already have an account? {" "}
               <Link 
                 to="/login" 
@@ -135,6 +236,13 @@ const Register = () => {
                   if (isLoading) {
                     e.preventDefault();
                   }
+                }}
+                style={{
+                  color: '#00abf0',
+                  textDecoration: 'none',
+                  fontWeight: 'bold',
+                  pointerEvents: isLoading ? 'none' : 'auto',
+                  opacity: isLoading ? 0.6 : 1
                 }}
               >
                 Login
